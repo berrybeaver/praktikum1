@@ -1,10 +1,28 @@
 package bank;
 /*Vererbung mit extends*/
-public class Transfer extends Payment{
+public class Transfer {
+    private String date;
+    private double amount;
+
+    private String description;
     private String sender;
     private String recipient;
 
     /* Setter und Getter*/
+    public void setDate(String date){
+        this.date = date;
+    }
+    public String get_date(){
+        return date;
+    }
+
+
+    public void setDescription(String description){
+        this.description=description;
+    }
+    public String getDescription(){
+        return description;
+    }
     /*fuer Transfer, Amount kleiner als oder 0$ ist nicht erlaubt*/
 
     public void setAmount(double amount){
@@ -15,6 +33,9 @@ public class Transfer extends Payment{
         else{
             this.amount = amount;
         }
+    }
+    public double getAmount(){
+        return amount;
     }
     public void setSender(String sender){
         this.sender = sender;
@@ -34,10 +55,12 @@ public class Transfer extends Payment{
         super();
     }
     public Transfer(String date, double amount, String description) {
-        super(date, amount, description);
+        setDate(date);
+        setAmount(amount);
+        setDescription(description);
     }
     public Transfer(String date, double amount, String description, String sender, String recipient){
-        super(date, amount, description);
+        this(date, amount, description);
         setSender(sender);
         setRecipient(recipient);
     }
