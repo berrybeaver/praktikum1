@@ -1,13 +1,21 @@
 package bank;
 /*Vererbung mit extends*/
 public class Transfer extends Payment{
-    private String date;
-    private double amount;
-    private String description;
     private String sender;
     private String recipient;
 
     /* Setter und Getter*/
+    /*fuer Transfer, Amount kleiner als oder 0$ ist nicht erlaubt*/
+
+    public void setAmount(double amount){
+
+        if(amount<=0){
+            System.out.println("Amount given may not be 0 or lower, please change the Amount");
+        }
+        else{
+            this.amount = amount;
+        }
+    }
     public void setSender(String sender){
         this.sender = sender;
     }
@@ -35,25 +43,23 @@ public class Transfer extends Payment{
     }
     /*Copy Konstruktor*/
     public Transfer(Transfer Transfer){
+        /*
         this.date = Transfer.get_date();
         this.amount = Transfer.getAmount();
         this.description = Transfer.getDescription();
         this.sender = Transfer.getSender();
         this.recipient = Transfer.getRecipient();
+         */
+        this(Transfer.date, Transfer.amount, Transfer.description, Transfer.sender, Transfer.recipient );
+
     }
     public void printObject(){
-        /*fuer Transfer, Amount kleiner als oder 0$ ist nicht erlaubt*/
         System.out.println("-----Transfer-----");
-        if(amount<0){
-            System.out.println("Amount given may not be 0 or lower, please change the Amount");
-        }
-        else {
-            System.out.println("date: " + date);
-            System.out.println(amount + "$");
-            System.out.println(description);
-            System.out.println("Sender: " + sender);
-            System.out.println("Recipient: " + recipient);
-        }
+        System.out.println("date: " + date);
+        System.out.println(amount + "$");
+        System.out.println(description);
+        System.out.println("Sender: " + sender);
+        System.out.println("Recipient: " + recipient);
         System.out.println("--------------------------------------------");
     }
 }

@@ -1,9 +1,9 @@
 package bank;
 
 public class Payment {
-    private String date;
-    private double amount;
-    private String description;
+    protected String date;
+    protected double amount;
+    protected String description;
     private double incomingInterest=0;
     private double outcomingInterest=0;
 
@@ -30,14 +30,26 @@ public class Payment {
     }
 
     public void setIncomingInterest(double incomingInterest){
-        this.incomingInterest=incomingInterest;
+        if(0 <= incomingInterest & incomingInterest<=1) {
+            this.incomingInterest = incomingInterest;
+        }
+        else{
+            System.out.println("Incoming Interest may not be lower than 0 or higher than 1," +
+                    " please change the Amount");
+        }
     }
     public double getIncomingInterest(){
         return incomingInterest;
     }
 
     public void setOutcomingInterest(double outcomingInteret){
-        this.outcomingInterest=outcomingInteret;
+        if(0 <= outcomingInterest & outcomingInterest <= 1) {
+            this.outcomingInterest = outcomingInteret;
+        }
+        else{
+            System.out.println("Outcoming Interest may not be lower than 0 or higher than 1," +
+                    " please change the Amount");
+        }
     }
     public double getOutcomingInterest(){
         return outcomingInterest;
@@ -45,10 +57,9 @@ public class Payment {
 
     /*Methoden und Konstruktoren*/
     public Payment(){
-        date="01.01.0000";
-        amount=0;
-        description="";
-
+        setDate("01.01.0000");
+        setAmount(0);
+        setDescription("");
     }
     public Payment(String date, double amount, String description){
         setDate(date);
@@ -68,23 +79,16 @@ public class Payment {
 
     public void printObject(){
         System.out.println("-----Payment-----");
-        if((0 <= incomingInterest & incomingInterest<=1) & (0 <= outcomingInterest & outcomingInterest <= 1) ) {
-
-            System.out.println("date: " + date);
-            /*sodass wenn amount - ist, wird ein - Zeichnung vor dem Amount geschriebt*/
-            if (amount < 0) {
-                System.out.println(amount + "$");
-            } else {
-                System.out.println("+" + amount + "$");
-            }
-            System.out.println(description);
-            System.out.println("Incoming Interest: " + incomingInterest);
-            System.out.println("Outcoming Interest: " + outcomingInterest);
+        System.out.println("date: " + date);
+        /*sodass wenn amount - ist, wird ein - Zeichnung vor dem Amount geschriebt*/
+        if (amount < 0) {
+            System.out.println(amount + "$");
+        } else {
+            System.out.println("+" + amount + "$");
         }
-        else{
-            System.out.println("Incoming/Outcoming Interest may not be lower than 0 or higher than 1," +
-                    " please change the Amount");
-        }
+        System.out.println(description);
+        System.out.println("Incoming Interest: " + incomingInterest);
+        System.out.println("Outcoming Interest: " + outcomingInterest);
         System.out.println("--------------------------------------------");
     }
 }
