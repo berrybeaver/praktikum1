@@ -1,30 +1,13 @@
 package bank;
 /*Vererbung mit extends*/
-public class Transfer {
-    private String date;
-    private double amount;
-
-    private String description;
+public class Transfer extends Transaction implements CalculateBill{
+    protected double amount;
     private String sender;
     private String recipient;
 
     /* Setter und Getter*/
-    public void setDate(String date){
-        this.date = date;
-    }
-    public String get_date(){
-        return date;
-    }
 
-
-    public void setDescription(String description){
-        this.description=description;
-    }
-    public String getDescription(){
-        return description;
-    }
     /*fuer Transfer, Amount kleiner als oder 0$ ist nicht erlaubt*/
-
     public void setAmount(double amount){
 
         if(amount<=0){
@@ -55,9 +38,8 @@ public class Transfer {
         super();
     }
     public Transfer(String date, double amount, String description) {
-        setDate(date);
+        super(date, description);
         setAmount(amount);
-        setDescription(description);
     }
     public Transfer(String date, double amount, String description, String sender, String recipient){
         this(date, amount, description);
@@ -66,23 +48,20 @@ public class Transfer {
     }
     /*Copy Konstruktor*/
     public Transfer(Transfer Transfer){
-        /*
-        this.date = Transfer.get_date();
-        this.amount = Transfer.getAmount();
-        this.description = Transfer.getDescription();
-        this.sender = Transfer.getSender();
-        this.recipient = Transfer.getRecipient();
-         */
-        this(Transfer.date, Transfer.amount, Transfer.description, Transfer.sender, Transfer.recipient );
-
+        this(Transfer.get_date(), Transfer.amount, Transfer.getDescription(), Transfer.sender, Transfer.recipient );
     }
     public void printObject(){
         System.out.println("-----Transfer-----");
-        System.out.println("date: " + date);
+        System.out.println("date: " + get_date());
         System.out.println(amount + "$");
-        System.out.println(description);
+        System.out.println(getDescription());
         System.out.println("Sender: " + sender);
         System.out.println("Recipient: " + recipient);
         System.out.println("--------------------------------------------");
+    }
+
+    @Override
+    public double calculate() {
+        return amount;
     }
 }
