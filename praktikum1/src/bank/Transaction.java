@@ -1,5 +1,7 @@
 package bank;
 
+import java.util.Objects;
+
 public abstract class Transaction implements CalculateBill {
     /**
      * stellt den Zeitpunkt der Transaktion mit dem Format als DD.MM.YYYY dar
@@ -85,10 +87,19 @@ public abstract class Transaction implements CalculateBill {
      * @param obj das zu vergleichende Objekt
      * @return true, wenn beide sind gleich sonst false
      */
-    public boolean equals(Object obj) {
+    /**public boolean equals(Object obj) {
         if (obj instanceof Transaction transaction)
             return (this.date.equals(transaction.date) &&
                     this.description.equals(transaction.description) && this.amount == transaction.amount);
         return false;
     }
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Double.compare(that.amount, amount) == 0 && Objects.equals(date, that.date) && Objects.equals(description, that.description);
+    }
+
 }

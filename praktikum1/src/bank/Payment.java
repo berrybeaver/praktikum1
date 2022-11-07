@@ -1,5 +1,7 @@
 package bank;
 
+import java.util.Objects;
+
 public class Payment extends Transaction  {
     /**
      * die Zinsen (positiver Wert in Prozent, 0 bis 1) bei einer Einzahlung anfallen
@@ -131,11 +133,21 @@ public class Payment extends Transaction  {
      * @param obj das zu vergleichende Objekt
      * @return true, wenn beide sind gleich sonst false
      */
+    /**
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Payment payment)
             return (super.equals(payment) && incomingInterest == payment.incomingInterest
                     && outcomingInterest == payment.outcomingInterest);
         return false;
+    }
+    */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Payment payment = (Payment) o;
+        return Double.compare(payment.incomingInterest, incomingInterest) == 0 && Double.compare(payment.outcomingInterest, outcomingInterest) == 0;
     }
 }

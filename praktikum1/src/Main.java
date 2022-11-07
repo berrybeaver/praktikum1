@@ -4,8 +4,8 @@ import bank.Transfer;
 
 public class Main {
     public static void main(String[] args) {
-        Payment ersteEinzahlung = new Payment("17.09.2009", 569.4912, "1. Einzahlung");
-        Payment zweiteEinzahlung = new Payment("27.10.2017" ,1090, "2. Einzahlung", 0.5, 1);
+        Payment ersteEinzahlung = new Payment("17.09.2009", 1000, "1. Einzahlung");
+        Payment zweiteEinzahlung = new Payment("27.10.2017" ,-1000, "2. Einzahlung", 0.05, 0.1);
         Payment auszahlung = new Payment("30.03.1980", -10983, "Auszahlung", 0.6, 0.789);
         Payment payment = new Payment(auszahlung);
 

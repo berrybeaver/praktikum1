@@ -1,4 +1,7 @@
 package bank;
+
+import java.util.Objects;
+
 /*Vererbung mit extends*/
 public class Transfer extends Transaction {
     /**
@@ -121,11 +124,21 @@ public class Transfer extends Transaction {
      * @param obj das zu vergleichende Objekt
      * @return true, wenn beide sind gleich sonst false
      */
+    /**
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Transfer transfer)
             return (super.equals(transfer) && sender.equals(transfer.sender)
                     && recipient.equals(transfer.recipient));
         return false;
+    }
+    */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Transfer transfer = (Transfer) o;
+        return Objects.equals(sender, transfer.sender) && Objects.equals(recipient, transfer.recipient);
     }
 }
