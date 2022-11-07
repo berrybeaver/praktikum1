@@ -9,8 +9,8 @@ public class Main {
         Payment auszahlung = new Payment("30.03.1980", -10983, "Auszahlung", 0.6, 0.789);
         Payment payment = new Payment(auszahlung);
 
-        System.out.print("1.Einzahlung: \n" + ersteEinzahlung + "2. Einzahlung: \n" + zweiteEinzahlung +
-                "Auszahlung: \n" + auszahlung + "Copy Konstruktor: \n" + payment);
+        System.out.print("1. Einzahlung: \n" + ersteEinzahlung + "2. Einzahlung: \n" + zweiteEinzahlung +
+                "Auszahlung: \n" + auszahlung + "Copy Konstruktor: \n" + payment +"\n");
         System.out.println( "1==2: "+ersteEinzahlung.equals(zweiteEinzahlung) +"\n2==1: "+ zweiteEinzahlung.equals(ersteEinzahlung) +"\n");
 
         Transfer firstTransfer = new Transfer("17.09.2009", 569.4912 , "1. Einzahlung");
