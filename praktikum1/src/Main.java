@@ -21,7 +21,7 @@ public class Main {
         System.out.print("1. Transfer: \n" + firstTransfer + "2. Transfer: \n" + secondTransfer +
                 "3. Transfer: \n" + thirdTransfer + "Copy Konstruktor: \n" + transfer);
         System.out.println("\npayment == firstTransfer: " + payment.equals(firstTransfer) + "\nfirstTransfer == secondTransfer: "
-                + firstTransfer.equals(secondTransfer) + "\nsecondTransfer == thirdTransfer expected: " + secondTransfer.equals(thirdTransfer)
+                + firstTransfer.equals(secondTransfer) + "\nsecondTransfer == thirdTransfer: " + secondTransfer.equals(thirdTransfer)
                 + "\nsecondTransfer == transfer: " + secondTransfer.equals(transfer));
     }
 }

@@ -124,8 +124,8 @@ public class Transfer extends Transaction {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Transfer transfer)
-            return (super.equals(transfer) && this.sender.equals(transfer.sender)
-                    && this.recipient.equals(transfer.recipient));
+            return (super.equals(transfer) && sender.equals(transfer.sender)
+                    && recipient.equals(transfer.recipient));
         return false;
     }
 }
