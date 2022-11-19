@@ -201,7 +201,64 @@ public class PrivateBank implements Bank{
             balance = balance + transaction.calculate();
         }
         System.out.println("Balance of account <" + account + "> in bank <" + name + "> : " + (double) Math.round(balance * 100)/100 + "\n");
-        return 1;
+        return balance;
+    }
+    /**
+     * Returns a list of transactions for an account.
+     *
+     * @param account the selected account
+     * @return the list of transactions
+     */
+    @Override
+    public List<Transaction> getTransactions(String account) {
+        System.out.println("Transactions list of account <" + account + "> in bank <" + name + ">\n" + accountsToTransactions.get(account).toString().replace("[", "\t\t").replace("]","").replace("\n, ", "\n\t\t"));
+        return accountsToTransactions.get(account);
+    }
+    /**
+     * Returns a sorted list (-> calculated amounts) of transactions for a specific account . Sorts the list either in ascending or descending order
+     * (or empty).
+     *
+     * @param account the selected account
+     * @param asc     selects if the transaction list is sorted ascending or descending
+     * @return the list of transactions
+     */
+    @Override
+    public List<Transaction> getTransactionsSorted(String account, boolean asc) {
+        // create new list to store sorted list without affecting original list
+        List<Transaction> sortedTransactionsList = new ArrayList<>(accountsToTransactions.get(account));
+        if(asc) {
+            sortedTransactionsList.sort(Comparator.comparingDouble(Transaction::calculate));
+            System.out.println("Sorting transactions of account <" + account + "> by calculated amounts in ASCENDING order:\n" + sortedTransactionsList.toString().replace("[", "\t\t").replace("]","").replace("\n, ", "\n\t\t"));
+        }
+        else {
+            sortedTransactionsList.sort(Comparator.comparingDouble(Transaction::calculate).reversed());
+            System.out.println("Sorting transactions of account <" + account + "> by calculated amounts in DESCENDING order:\n" + sortedTransactionsList.toString().replace("[", "\t\t").replace("]","").replace("\n, ", "\n\t\t"));
+        }
+        return sortedTransactionsList;
+    }
+    /**
+     * Returns a list of either positive or negative transactions (-> calculated amounts).
+     *
+     * @param account  the selected account
+     * @param positive selects if positive  or negative transactions are listed
+     * @return the list of transactions
+     */
+    @Override
+    public List<Transaction> getTransactionsByType(String account, boolean positive) {
+        List<Transaction> transactionsListByType = new ArrayList<>();
+        if (positive)
+            System.out.println("List of POSITIVE transactions of account <" + account + "> :");
+        else
+            System.out.println("List of NEGATIVE transactions of account <" + account + "> :");
+        for (Transaction transaction : accountsToTransactions.get(account)) {
+            if (positive && transaction.calculate() >= 0)
+                transactionsListByType.add(transaction);
+            else if (!positive && transaction.calculate() < 0)
+                transactionsListByType.add(transaction);
+        }
+        System.out.println(transactionsListByType.toString().replace("[", "\t\t").replace("]","").replace("\n, ", "\n\t\t"));
+
+        return transactionsListByType;
     }
 
 }
