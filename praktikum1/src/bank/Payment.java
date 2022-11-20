@@ -18,10 +18,11 @@ public class Payment extends Transaction  {
      * @param incomingInterest neuer Wert für incomingInterest
      */
     public void setIncomingInterest(double incomingInterest){
-        if(0 <= incomingInterest & incomingInterest<=1) {
+        if(0 <= incomingInterest & incomingInterest<1) {
             this.incomingInterest = incomingInterest;
         }
         else{
+            this.incomingInterest = incomingInterest;
             System.out.println("Incoming Interest may not be lower than 0 or higher than 1," +
                     " please change the Amount");
         }
@@ -37,10 +38,11 @@ public class Payment extends Transaction  {
      * @param outcomingInterest neuer Wert für outgoingInterest
      */
     public void setOutcomingInterest(double outcomingInterest){
-        if(0 <= outcomingInterest & outcomingInterest <= 1) {
+        if(0 <= outcomingInterest & outcomingInterest < 1) {
             this.outcomingInterest = outcomingInterest;
         }
         else{
+            this.outcomingInterest = outcomingInterest;
             System.out.println("Outcoming Interest may not be lower than 0 or higher than 1," +
                     " please change the Amount");
         }
@@ -111,13 +113,11 @@ public class Payment extends Transaction  {
      */
     @Override
     public double calculate() {
-        if(amount > 0){
-            amount = amount*(1-incomingInterest);
+        if (amount >= 0) {
+            return (amount - incomingInterest * amount);
         }
-        else {
-            amount = amount*(1+outcomingInterest);
-        }
-        return amount;
+        else
+            return (amount + outcomingInterest * amount);
     }
 
     /**

@@ -79,7 +79,7 @@ public abstract class Transaction implements CalculateBill {
      * @return den Inhalt aller Klassenattribute
      */
     public String toString() {
-        return "Date: " + date + ", Description: " + description + ", Amount: " + calculate() + " €";
+        return "Date: " + date + ", Description: " + description + ", Amount: " + amount + " €";
     }
 
     /**
