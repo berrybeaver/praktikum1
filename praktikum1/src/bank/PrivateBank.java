@@ -1,10 +1,7 @@
 package bank;
 
 
-import bank.exceptions.AccountAlreadyExistsException;
-import bank.exceptions.AccountDoesNotExistException;
-import bank.exceptions.TransactionAlreadyExistException;
-import bank.exceptions.TransactionDoesNotExistException;
+import bank.exceptions.*;
 
 import java.util.*;
 
@@ -93,24 +90,35 @@ public class PrivateBank implements Bank{
         }
     }
     /**
-     * Adds an account (with all specified transactions) to the bank. If the account ALREADY EXISTS,
-     * an exception is thrown.
+     * Adds an account (with specified transactions) to the bank.
+     * Important: duplicate transactions must not be added to the account!
      *
      * @param account      the account to be added
-     * @param transactions
-     * @throws AccountAlreadyExistsException if the account ALREADY EXISTS
+     * @param transactions a list of already existing transactions which should be added to the newly created account
+     * @throws AccountAlreadyExistsException    if the account already exists
+     * @throws TransactionAlreadyExistException if the transaction already exists
+     * @throws TransactionAttributeException    if the validation check for certain attributes fail
      */
     @Override
-    public void createAccount(String account, List<Transaction> transactions) throws AccountAlreadyExistsException {
+    public void createAccount(String account, List<Transaction> transactions)
+            throws AccountAlreadyExistsException, TransactionAlreadyExistException, TransactionAttributeException {
         System.out.print("Creating new account <" + account + "> to bank <" + name + "> with transactions list: \n\t\t" + transactions.toString().replaceAll("[]]|[\\[]", "").replace("\n, ", "\n\t\t"));
         if ( (accountsToTransactions.containsKey(account)) || (accountsToTransactions.containsKey(account) && accountsToTransactions.containsValue(transactions)) )
             throw new AccountAlreadyExistsException("ACCOUNT <" + account + "> ALREADY EXISTS!\n");
         else {
-            for (Transaction valueOfTransactions : transactions)
+            //INI BUAT APA
+            for (Transaction valueOfTransactions : transactions) {
                 if (valueOfTransactions instanceof Payment payment) {
                     payment.setIncomingInterest(PrivateBank.this.incomingInterest);
                     payment.setOutcomingInterest(PrivateBank.this.outgoingInterest);
+                    if(payment.getIncomingInterest() <= 0 || payment.getIncomingInterest() >= 1){
+                        throw new TransactionAttributeException("INCOMING INTEREST MUST BE IN BETWEEN 0 AND 1!\n");
+                    } else if (payment.getOutcomingInterest() <= 0 || payment.getOutcomingInterest() >= 1) {
+                        throw new TransactionAttributeException("OUTGOING INTEREST MUST BE IN BETWEEN 0 AND 1!\n");
+                    }
                 }
+            }
+
             accountsToTransactions.put(account, transactions);
             System.out.println("=> SUCCESS!\n");
 
