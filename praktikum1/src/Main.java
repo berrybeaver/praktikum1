@@ -44,7 +44,7 @@ public class Main {
         }
         //create account with attribute fail
         try{
-            privateBank.createAccount("fire", List.of(new Payment("03.03.2001", 80, "Payment", 1, 0.5)
+            privateBank.createAccount("fire", List.of(new Payment("03.03.2001", 80, "Payment", 2, 0.5)
             ));
         }catch (AccountAlreadyExistsException | TransactionAttributeException e){
             System.out.println(e);
