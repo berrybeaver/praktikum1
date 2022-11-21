@@ -110,8 +110,8 @@ import java.util.*;
             else {
                 for (Transaction valueOfTransactions : transactions) {
                     if (valueOfTransactions instanceof Payment payment) {
-                        payment.setIncomingInterest(bank.PrivateBank.this.incomingInterest);
-                        payment.setOutcomingInterest(bank.PrivateBank.this.outgoingInterest);
+                        payment.setIncomingInterest(bank.PrivateBankAlt.this.incomingInterest);
+                        payment.setOutcomingInterest(bank.PrivateBankAlt.this.outgoingInterest);
                         /**
                          if(payment.getIncomingInterest() <= 0 || payment.getIncomingInterest() >= 1){
                          throw new TransactionAttributeException("INCOMING INTEREST MUST BE IN BETWEEN 0 AND 1!\n");
@@ -207,10 +207,18 @@ import java.util.*;
          * @param account the selected account
          * @return the current account balance
          */
-        @Override
-        public double getAccountBalance(String account){
+        public double getAccountBalance(String account) {
             double balance = 0.0;
-            getTransactions(account) instanceof
+            for (Transaction t : getTransactions(account)) {
+                if (!(t instanceof Transfer)) {
+                    balance += t.calculate();
+                } else {
+                    Transfer tf = (Transfer) t;
+                    if (account.equals(tf.getSender())) balance -= t.calculate(); // Falls das aktuelle Konto ist der Sender (Betrag abgezogen)
+                    else balance += t.calculate(); // Falls das aktuelle Konto ist der Empfänger (Betrag addiert)
+                }
+            }
+            return balance;
         }
         /**
          * Returns a list of transactions for an account.
@@ -271,4 +279,3 @@ import java.util.*;
         }
 
     }
-}
