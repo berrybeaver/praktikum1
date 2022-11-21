@@ -1,5 +1,7 @@
 package bank;
 
+import bank.exceptions.TransactionAttributeException;
+
 import java.util.Objects;
 
 /*Vererbung mit extends*/
@@ -24,7 +26,7 @@ public class Transfer extends Transaction {
     public void setAmount(double amount){
 
         if(amount<=0){
-            System.out.println("Amount given may not be 0 or lower, please change the Amount");
+            throw new TransactionAttributeException("AMOUNT MAY NOT BE LOWER THAN 0!\n");
         }
         else{
             this.amount = amount;

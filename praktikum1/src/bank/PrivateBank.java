@@ -103,10 +103,9 @@ public class PrivateBank implements Bank{
     public void createAccount(String account, List<Transaction> transactions)
             throws AccountAlreadyExistsException, TransactionAlreadyExistException, TransactionAttributeException {
         System.out.print("Creating new account <" + account + "> to bank <" + name + "> with transactions list: \n\t\t" + transactions.toString().replaceAll("[]]|[\\[]", "").replace("\n, ", "\n\t\t"));
-        if ( (accountsToTransactions.containsKey(account)) || (accountsToTransactions.containsKey(account) && accountsToTransactions.containsValue(transactions)) )
-            throw new AccountAlreadyExistsException("ACCOUNT <" + account + "> ALREADY EXISTS!\n");
+        if ( (accountsToTransactions.containsKey(account)) || (accountsToTransactions.containsKey(account) && accountsToTransactions.containsValue(transactions)) ){
+            throw new AccountAlreadyExistsException("ACCOUNT <" + account + "> ALREADY EXISTS!\n");}
         else {
-            //INI BUAT APA
             for (Transaction valueOfTransactions : transactions) {
                 if (valueOfTransactions instanceof Payment payment) {
                     payment.setIncomingInterest(PrivateBank.this.incomingInterest);
@@ -145,8 +144,7 @@ public class PrivateBank implements Bank{
         else {
             if(accountsToTransactions.get(account).contains(transaction)){
                 throw new TransactionAlreadyExistException("THIS TRANSACTION ALREADY EXIST!\n");
-            }
-            else{
+            } else{
                 if(transaction instanceof Payment payment){
                     payment.setIncomingInterest(PrivateBank.this.incomingInterest);
                     payment.setOutcomingInterest(PrivateBank.this.outgoingInterest);

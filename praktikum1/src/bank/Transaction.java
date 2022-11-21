@@ -70,9 +70,9 @@ public abstract class Transaction implements CalculateBill {
      * @param amount Wert für amount
      */
     public Transaction(String date, String description, double amount){
-        this.date = date;
-        this.description=description;
-        this.amount = amount;
+        setDate(date);
+        setDescription(description);
+        setAmount(amount);
     }
 
     /**

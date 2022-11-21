@@ -18,10 +18,10 @@ public class Main {
                 new Transfer("03.03.2000", 80, "Transfer", "Salve", "Mango"),
                 new Payment("05.08.2022", -100, "Payment", 0., 0.),
                 new Transfer("15.04.1990", 200, "Transfer", "Mango", "Vaio"),
-                new Transfer("30.07.2020", 2000, "Transfer", "Mango", "Booth"),
                 new Payment("19.01.2011", -800, "Payment", 0.9, 0.25)
         ));
 
+/**
         System.out.println(privateBank);
         //create account fail
         try {
@@ -34,7 +34,15 @@ public class Main {
             privateBank.createAccount("Salve", List.of(
                     new Transfer("03.03.2001", 80, "Transfer", "Salve", "Mango")
             ));
-        } catch (AccountAlreadyExistsException e) {
+        } catch (AccountAlreadyExistsException | TransactionAttributeException e) {
+            System.out.println(e);
+        }
+        //amount fail
+        try {
+            privateBank.createAccount("Fire", List.of(
+                    new Transfer("03.03.2001", -80, "Transfer", "Salve", "Mango")
+            ));
+        } catch (AccountAlreadyExistsException | TransactionAttributeException e) {
             System.out.println(e);
         }
         //create account with attribute fail
@@ -50,7 +58,10 @@ public class Main {
         } catch (AccountAlreadyExistsException e) {
             System.out.println(e);
         }
+*/
+/**
 
+        //add Transaction
         System.out.println(privateBank);
         //add payment failed
         try {
@@ -72,16 +83,25 @@ public class Main {
         }
         //add payment success
         try {
-            privateBank.addTransaction("fire", new Payment("22.03.2003", 100, "Payment", 0.9, 0.75));
+            privateBank.addTransaction("Salve", new Payment("22.03.2003", 100, "Payment", 0.9, 0.75));
         } catch (AccountDoesNotExistException | TransactionAlreadyExistException | TransactionAttributeException e) {
             System.out.println(e);
         }
         //add Transfer success
         try {
-            privateBank.addTransaction("fire", new Transfer("19.04.2023", 4000, "Transfer", "fire", "Mango"));
-        } catch (AccountDoesNotExistException | TransactionAlreadyExistException e) {
+            privateBank.addTransaction("Salve", new Transfer("19.04.2023", 4000, "Transfer", "Salve", "Mango"));
+        } catch (AccountDoesNotExistException | TransactionAlreadyExistException | TransactionAttributeException e) {
             System.out.println(e);
         }
+        //add Transfer attribute fail
+        try {
+            privateBank.addTransaction("Salve", new Transfer("19.04.2023", -4000, "Transfer", "Salve", "Mango"));
+        } catch (AccountDoesNotExistException | TransactionAlreadyExistException | TransactionAttributeException e) {
+            System.out.println(e);
+        }
+ */
+
+/** remove transaction
 
         System.out.println(privateBank);
         //removing transaction success
@@ -96,7 +116,8 @@ public class Main {
         } catch (TransactionDoesNotExistException e) {
             System.out.println(e);
         }
-
+ */
+/**
         System.out.println(privateBank);
         //sorting in ascending order
         privateBank.getTransactionsSorted("Mango", true);
@@ -106,18 +127,22 @@ public class Main {
         privateBank.getTransactionsByType("Mango", true);
         //sorting von Type negative
         privateBank.getTransactionsByType("Mango", false);
-
+*/
+/** get Transaction & account balance
         privateBank.getTransactions("Mango");
         //get account balance
         privateBank.getAccountBalance("Mango");
+ */
+
+
 
         //contain Transaction prüfen
         privateBank.containsTransaction("Salve", new Transfer("28.02.1908", 1200, "Transfer", "Salve", "Mango"));
         privateBank.containsTransaction("Salve", new Transfer("03.03.2000", 100, "Transfer", "Salve", "Mango"));
-        privateBank.containsTransaction("fire", new Payment("22.03.2003", 100, "Payment", 0.9, 0.75));
+        //privateBank.containsTransaction("fire", new Payment("22.03.2003", 100, "Payment", 0.9, 0.75));
 
 
-        PrivateBank privateBank2 = new PrivateBank("Bank2", 0.25, 0.3);
+        PrivateBankAlt privateBank2 = new PrivateBankAlt("Bank2", 0.25, 0.3);
         privateBank2.createAccount("Salve", List.of(
                 new Payment("12.03.2008", 320, "Payment"),
                 new Payment("23.09.1897", -2500, "Payment", 0.8, 0.5),
@@ -137,7 +162,9 @@ public class Main {
         privateBank.getTransactions("Salve");
         privateBank.getAccountBalance("Salve");
 
+
         System.out.println("Testing equals() method:\nBank1 vs Bank2 expected <false> => " + privateBank.equals(privateBank2));
+
 
     }
 }

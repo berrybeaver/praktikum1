@@ -17,7 +17,7 @@ public class Payment extends Transaction  {
      * Legt das Attribut incomingInterest fest
      * @param incomingInterest neuer Wert für incomingInterest
      */
-    public void setIncomingInterest(double incomingInterest)throws TransactionAttributeException{
+    public void setIncomingInterest(double incomingInterest){
         if(0 <= incomingInterest & incomingInterest<1) {
             this.incomingInterest = incomingInterest;
         }
