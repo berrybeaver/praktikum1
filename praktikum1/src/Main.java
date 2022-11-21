@@ -1,10 +1,5 @@
-import java.util.Scanner;
 import bank.*;
-import bank.exceptions.AccountAlreadyExistsException;
-import bank.exceptions.AccountDoesNotExistException;
-import bank.exceptions.TransactionAlreadyExistException;
-import bank.exceptions.TransactionDoesNotExistException;
-import bank.exceptions.TransactionAttributeException;
+import bank.exceptions.*;
 
 import java.util.List;
 
@@ -16,7 +11,7 @@ public class Main {
         privateBank.createAccount("Salve", List.of(
                 new Payment("12.03.2008", 300, "Payment"),
                 new Payment("23.09.1897", -2500, "Payment", 0.8, 0.5),
-                new Transfer("03.03.2000", 80, "Transfer", "Salve", "Mango")
+                new Transfer("03.03.2000", 100, "Transfer", "Salve", "Mango")
         ));
         privateBank.createAccount("Mango", List.of(
                 new Payment("22.06.1998", 400, "Payment", 0., 0.),
@@ -69,10 +64,16 @@ public class Main {
         } catch (AccountDoesNotExistException | TransactionAlreadyExistException e) {
             System.out.println(e);
         }
+        //add Payment attribute fail
+        try{
+            privateBank.addTransaction("fire", new Payment("22.03.2003", 100, "Payment", 2, 0.75));
+        } catch (AccountDoesNotExistException | TransactionAlreadyExistException | TransactionAttributeException e) {
+            System.out.println(e);
+        }
         //add payment success
         try {
             privateBank.addTransaction("fire", new Payment("22.03.2003", 100, "Payment", 0.9, 0.75));
-        } catch (AccountDoesNotExistException | TransactionAlreadyExistException e) {
+        } catch (AccountDoesNotExistException | TransactionAlreadyExistException | TransactionAttributeException e) {
             System.out.println(e);
         }
         //add Transfer success

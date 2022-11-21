@@ -1,6 +1,6 @@
 package bank;
 
-import java.util.Objects;
+import bank.exceptions.TransactionAttributeException;
 
 public class Payment extends Transaction  {
     /**
@@ -17,14 +17,13 @@ public class Payment extends Transaction  {
      * Legt das Attribut incomingInterest fest
      * @param incomingInterest neuer Wert für incomingInterest
      */
-    public void setIncomingInterest(double incomingInterest){
+    public void setIncomingInterest(double incomingInterest)throws TransactionAttributeException{
         if(0 <= incomingInterest & incomingInterest<1) {
             this.incomingInterest = incomingInterest;
         }
         else{
             this.incomingInterest = incomingInterest;
-            System.out.println("Incoming Interest may not be lower than 0 or higher than 1," +
-                    " please change the Amount");
+            throw new TransactionAttributeException("INCOMING INTEREST MUST BE IN BETWEEN 0 AND 1!\n");
         }
     }
     /**
@@ -37,14 +36,14 @@ public class Payment extends Transaction  {
      * Legt das Attribut outgoingInterest fest
      * @param outcomingInterest neuer Wert für outgoingInterest
      */
-    public void setOutcomingInterest(double outcomingInterest){
+    public void setOutcomingInterest(double outcomingInterest)throws TransactionAttributeException{
         if(0 <= outcomingInterest & outcomingInterest < 1) {
             this.outcomingInterest = outcomingInterest;
         }
         else{
             this.outcomingInterest = outcomingInterest;
-            System.out.println("Outcoming Interest may not be lower than 0 or higher than 1," +
-                    " please change the Amount");
+            throw new TransactionAttributeException("OUTGOING INTEREST MUST BE IN BETWEEN 0 AND 1!\n");
+
         }
     }
     /**
