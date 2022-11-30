@@ -58,7 +58,7 @@ public class Payment extends Transaction  {
     /**
      * default Konstruktor
      */
-    public Payment(){
+    public Payment(String date, String description, double amount, double incomingInterest, double outgoingInterest){
         super();
     }
     /**

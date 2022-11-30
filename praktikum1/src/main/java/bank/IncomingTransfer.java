@@ -5,10 +5,12 @@ public class IncomingTransfer extends Transfer{
      * Konstruktor mit drei Attributen
      *
      * @param newDate        Wert für date
-     * @param newDescription Wert für description
+     * @param description
      * @param newAmount      Wert für amount
+     * @param newDescription Wert für description
+     * @param recipient
      */
-    public IncomingTransfer(String newDate, double newAmount , String newDescription) {
+    public IncomingTransfer(String newDate, String description, double newAmount , String newDescription, String recipient) {
         super(newDate, newAmount, newDescription);
     }
 
